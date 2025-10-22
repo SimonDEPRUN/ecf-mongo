@@ -5,8 +5,21 @@ const volSchema = new Schema({
     origine: { type: String, required: true },
     destination: { type: String, required: true },
     dateDepart: { type: Date, required: true },
-    dateArrivee: { type: Date, required: true },
-    avion: { type: Schema.Types.ObjectId, ref: "Avion", required: true },
+    dateArrivee: {
+        type: Date,
+        required: true,
+        validate: {
+            validator: function (value) {
+                return value > this.dateDepart;
+            },
+            message: "La date d'arrivée ne peut pas être antérieure à la date de départ."
+        }
+    },
+    avionId: {
+        type: Schema.Types.ObjectId,
+        ref: "Avion",
+        required: true,
+    },
     status: { type: String, enum: ["Prévu", "Retardé", "Terminé", "Annulé"], default: "Prévu" }
 }, { timestamps: true })
 
