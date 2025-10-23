@@ -36,8 +36,43 @@ router.post("/", async (req, res) => {
 });
 router.get("/", async (req, res) => {
     try {
-        const billets = await Billet.find();
-        res.render("billet/index", { billets });
+        const billets = await Billet.find().populate("volId").populate("passagerId");
+
+        const billetAnnulee = billets.filter(b => b.statut === "Annulé")
+
+
+
+        const billetsParClasse = {};
+        billets.forEach(b => {
+            const classe = b.classe || "Inconnu";
+            if (!billetsParClasse[classe]) billetsParClasse[classe] = [];
+            billetsParClasse[classe].push(b);
+        });
+
+        let classeLaPlusVendue = null;
+        let maxCount = 0;
+
+        for (const [classe, liste] of Object.entries(billetsParClasse)) {
+            if (liste.length > maxCount) {
+                maxCount = liste.length;
+                classeLaPlusVendue = classe;
+            }
+        };
+
+        const CA = billets.reduce((sum, b) => sum + (b.prix || 0), 0);
+
+
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+        const venteDuMois = billets.filter(b => {
+            const vente = new Date(b.dateReservation);
+            return vente >= startOfMonth && vente <= endOfMonth;
+        })
+
+
+        res.render("billet/index", { billets, venteDuMois, CA, classeLaPlusVendue, billetAnnulee });
     } catch (err) {
 
     }

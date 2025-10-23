@@ -27,8 +27,45 @@ router.put("/:id", async (req, res) => {
     }
 });
 router.get("/", async (req, res) => {
-    const vols = await Vol.find().populate("avionId");
-    res.render("vol/index", { vols })
+    try {
+        const vols = await Vol.find().populate("avionId");
+
+        const statusOrder = ["Prévu", "Retardé", "Terminé", "Annulé"];
+
+        vols.sort((a, b) => {
+            const statusDiff = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
+            if (statusDiff !== 0) return statusDiff;
+
+
+            const compA = a.avionId?.compagnie?.toLowerCase() || "";
+            const compB = b.avionId?.compagnie?.toLowerCase() || "";
+            return compA.localeCompare(compB);
+        });
+
+        const statusVol = {};
+        statusOrder.forEach(status => {
+            statusVol[status] = vols.filter(v => v.status === status);
+        });
+
+        const volsParCompagnie = {};
+        vols.forEach(v => {
+            const comp = v.avionId?.compagnie || "Inconnu";
+            if (!volsParCompagnie[comp]) volsParCompagnie[comp] = [];
+            volsParCompagnie[comp].push(v);
+        });
+
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+        const volsDuMois = vols.filter(v => {
+            const depart = new Date(v.dateDepart);
+            return depart >= startOfMonth && depart <= endOfMonth;
+        });
+
+
+        res.render("vol/index", { vols, statusVol, volsParCompagnie, volsDuMois });
+    } catch (err) { }
 });
 router.get("/new", async (req, res) => {
     try {

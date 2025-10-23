@@ -12,7 +12,11 @@ router.post("/", async (req, res) => {
 });
 router.put("/:id", async (req, res) => {
     try {
-        const avion = await Avion.findByIdAndUpdate(req.params.id, req.body);
+        const { model, compagnie, capacite } = req.body;
+
+        const enService = req.body.enService === "on" ? true : false;
+
+        await Avion.findByIdAndUpdate(req.params.id, { model, compagnie, capacite, enService });
         res.redirect("/api/avion");
     } catch (err) {
 
@@ -20,8 +24,24 @@ router.put("/:id", async (req, res) => {
 });
 router.get("/", async (req, res) => {
     try {
-        const avions = await Avion.find();
-        res.render("avion/index", { avions });
+        const avions = await Avion.find().sort({ compagnie: 1 });
+
+        const enService = avions.filter(a => a.enService);
+        const horsService = avions.filter(a => !a.enService);
+        const sumES = enService.length;
+        const sumHS = horsService.length;
+
+        const capaciteTotal = avions.reduce((sum, a) => sum + a.placeRestantes, 0);
+
+        const avionsParCompagnie = {};
+        avions.forEach(a => {
+            if (!avionsParCompagnie[a.compagnie]) {
+                avionsParCompagnie[a.compagnie] = [];
+            }
+            avionsParCompagnie[a.compagnie].push(a);
+        });
+
+        res.render("avion/index", { avions, enService, horsService, capaciteTotal, avionsParCompagnie, sumES, sumHS });
     } catch (err) {
 
     }

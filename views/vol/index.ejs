@@ -33,6 +33,33 @@
     <hr>
     <% }) %>
 
+    <h2>Status des vols</h2>
+    <% Object.keys(statusVol).forEach(status => { %>
+    <h4><%= status %></h4>
+    <h5>Total : <%= statusVol[status].length %> </h5>
+    <ul>
+      <% statusVol[status].forEach(v => {%>
+      <li>Vol n° : <%= v.numero %> en départ de : <%= v.origine %>, à destination de <%= v.destination %> </li>
+      <%}) %>
+    </ul>
+    <%}) %>
+    <h2>Vols par compagnie</h2>
+    <% Object.keys(volsParCompagnie).forEach(compagnie => { %>
+    <h4><%= compagnie %></h4>
+    <h5>Total : <%= volsParCompagnie[compagnie].length %> </h5>
+    <ul>
+      <% volsParCompagnie[compagnie].forEach(v => {%>
+      <li>Vol n° : <%= v.numero %> en départ de : <%= v.origine %>, à destination de <%= v.destination %> </li>
+      <%}) %>
+    </ul>
+    <%}) %>
+    <h2>Vols du mois</h2>
+    <h5>Total : <%= volsDuMois.length %></h5>
+    <ul>
+      <% volsDuMois.forEach(v => { %>
+      <li>Vol n° : <%= v.numero %> en départ de : <%= v.origine %>, à destination de <%= v.destination %> </li>
+      <%}) %>
+    </ul>
   </main>
 </body>
 

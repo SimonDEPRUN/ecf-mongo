@@ -35,7 +35,12 @@
       </div>
       <div class="mb-3">
         <label class="form-check-label" for="classe">Classe : </label>
-        <input type="text" class="form-control" name="classe" id="classe">
+        <select name="classe" class="form-select">
+          <option value="">--Classes--</option>
+          <option value="Economie">Eco</option>
+          <option value="Affaires">Affaires</option>
+          <option value="Premiere">Première</option>
+        </select>
       </div>
       <div class="mb-3">
         <label class="form-check-label" for="prix">Prix : </label>
@@ -43,7 +48,12 @@
       </div>
       <div class="mb-3">
         <label class="form-check-label" for="modePaiement">Mode de paiement : </label>
-        <input type="text" class="form-control" name="modePaiement" id="modePaiement">
+        <select name="modePaiement" class="form-select" id="modePaiement">
+          <option value="">--Paiement--</option>
+          <option value="CB">Carte Bleu</option>
+          <option value="Paypal">Paypal</option>
+          <option value="Especes">Especes</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

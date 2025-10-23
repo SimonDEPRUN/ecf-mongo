@@ -27,6 +27,10 @@
         <label for="capacite" class="form-label">Capacité : </label>
         <input type="text" value="<%= avion.capacite %>" name="capacite" class="form-control" id="capacite">
       </div>
+      <div class="form-check">
+        <input type="checkbox" name="enService" class="form-check-input" id="enService" <%= avion.enService ? "checked" : "" %>>
+        <label for="enService" class="form-label">En Service</label>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </main>

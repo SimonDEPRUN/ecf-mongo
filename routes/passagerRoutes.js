@@ -19,7 +19,17 @@ router.get("/new", async (req, res) => {
 });
 router.get("/", async (req, res) => {
     const passagers = await Passager.find();
-    res.render("passager/index", { passagers })
+
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+    const passagersDuMois = passagers.filter(p => {
+        const inscription = new Date(p.dateInscription);
+        return inscription >= startOfMonth && inscription <= endOfMonth;
+    });
+
+    res.render("passager/index", { passagers, passagersDuMois })
 });
 
 router.get("/:id/update", async (req, res) => {

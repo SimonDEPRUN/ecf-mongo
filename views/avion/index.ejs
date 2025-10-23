@@ -27,6 +27,45 @@
     <hr>
     <% }) %>
 
+    <h2>Avions par status</h2>
+    <h4>En Service</h4>
+    <h5>Total : <%= sumES%></h5>
+    <ul>
+      <% enService.forEach(a => { %>
+      <li>Avion : "<%= a._id%>" de la compagnie : <%= a.compagnie%> <form method="POST" action="/api/avion/<%= a._id %>?_method=DELETE" class="d-inline">
+          <button type="submit" class="btn btn-outline-primary">Delete</button>
+        </form>
+        <a href="/api/avion/<%= a._id %>/update" class="btn btn-outline-primary">Update</a>
+      </li>
+      <% }) %>
+    </ul>
+    <h4>Hors Service</h4>
+    <h5>Total : <%= sumHS%></h5>
+    <% horsService.forEach(hs => { %>
+    <li>Avion : "<%= hs._id%>" de la compagnie : <%= hs.compagnie%> <form method="POST" action="/api/avion/<%= hs._id %>?_method=DELETE" class="d-inline">
+        <button type="submit" class="btn btn-outline-primary">Delete</button>
+      </form>
+      <a href="/api/avion/<%= hs._id %>/update" class="btn btn-outline-primary">Update</a>
+    </li>
+    <% }) %>
+
+    <h2>Capacité total de la flotte</h2>
+    <p>Capacité totale de la flotte : <%= capaciteTotal %> sièges</p>
+
+    <h2>Avions par compagnie</h2>
+    <% Object.keys(avionsParCompagnie).forEach(compagnie => { %>
+    <h4><%= compagnie %></h4>
+    <h5>Total : <%= avionsParCompagnie[compagnie].length %></h5>
+    <ul>
+      <% avionsParCompagnie[compagnie].forEach(a => { %>
+      <li>Avion : "<%= a._id %>" de model "<%= a.model%>" en service : <%= a.enService ? "oui" : "non" %> <form method="POST" action="/api/avion/<%= a._id %>?_method=DELETE" class="d-inline">
+          <button type="submit" class="btn btn-outline-primary">Delete</button>
+        </form>
+        <a href="/api/avion/<%= a._id %>/update" class="btn btn-outline-primary">Update</a>
+      </li>
+      <% }) %>
+    </ul>
+    <% }) %>
   </main>
 </body>
 

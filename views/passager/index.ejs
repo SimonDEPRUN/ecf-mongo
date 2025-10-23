@@ -30,6 +30,15 @@
     <hr>
     <% }) %>
 
+    <h2>Passagers Enregistrée Totaux</h2>
+    <h5>Total : <%= passagers.length %></h5>
+    <h2>Nouveau passagers du mois</h2>
+    <h5>Total : <%= passagersDuMois.length %> </h5>
+    <ul>
+      <% passagersDuMois.forEach(p => {%>
+      <li><%= p.nom%> <%= p.prenom%></li>
+      <%}) %>
+    </ul>
   </main>
 </body>
 

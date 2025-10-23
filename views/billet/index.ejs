@@ -16,8 +16,8 @@
 
     <% billets.forEach( (billet) => { %>
     <ul>
-      <li> Vol : <%= billet.vilId %> </li>
-      <li> Passager : <%= billet.passagerId %> </li>
+      <li> Vol : <%= billet.volId._id %> </li>
+      <li> Passager : <%= billet.passagerId._id %> </li>
       <li> Siège <%= billet.numeroSiege %> </li>
       <li> Classe : <%= billet.classe %> </li>
       <li> Date de reservation : <%= billet.dateReservation %> </li>
@@ -29,6 +29,16 @@
     <a href="/api/billet/<%= billet._id %>/update" class="btn btn-outline-primary">Update</a>
     <hr>
     <% }) %>
+
+
+    <h2>Billets vendu ce mois-ci</h2>
+    <h5>Total : <%= venteDuMois.length %></h5>
+    <h2>Revenu Total des ventes</h2>
+    <h5>Total : <%= CA %>€</h5>
+    <h2>Classe le plus souvent acheter</h2>
+    <h5>La classe la plus vendu est : <%= classeLaPlusVendue%> </h5>
+    <h2>Billet annulé</h2>
+    <h5>Total : <%= billetAnnulee.length %></h5>
 
   </main>
 </body>
