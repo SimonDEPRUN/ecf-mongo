@@ -5,7 +5,7 @@ const passagerSchema = new Schema({
     prenom: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     pays: { type: String, required: true },
-    dateInsciption: { type: Date, required: true, default: Date.now },
+    dateInscription: { type: Date, required: true, default: Date.now },
 }, { timestamps: true })
 
 export default model("Passager", passagerSchema);

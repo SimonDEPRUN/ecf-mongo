@@ -5,25 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
   <title>Document</title>
 </head>
 
 <body>
   <%- include("../header") %>
   <main class="container">
-    <h1>Avions</h1>
+    <h1>Billets</h1>
 
-    <% avions.forEach( (avion) => { %>
+    <% billets.forEach( (billet) => { %>
     <ul>
-      <li>ID : <%= avion._id%></li>
-      <li> Modèle : <%= avion.model %> </li>
-      <li> Compagnie : <%= avion.compagnie %> </li>
-      <li> Capacité : <%= avion.capacite %> </li>
+      <li> Vol : <%= billet.vilId %> </li>
+      <li> Passager : <%= billet.passagerId %> </li>
+      <li> Siège <%= billet.numeroSiege %> </li>
+      <li> Classe : <%= billet.classe %> </li>
+      <li> Date de reservation : <%= billet.dateReservation %> </li>
+      <li> Status : <%= billet.statut %> </li>
     </ul>
-    <form method="POST" action="/api/avion/<%= avion._id %>?_method=DELETE" class="d-inline">
+    <form method="POST" action="/api/billet/<%= billet._id %>?_method=DELETE" class="d-inline">
       <button type="submit" class="btn btn-outline-primary">Delete</button>
     </form>
-    <a href="/api/avion/<%= avion._id %>/update" class="btn btn-outline-primary">Update</a>
+    <a href="/api/billet/<%= billet._id %>/update" class="btn btn-outline-primary">Update</a>
     <hr>
     <% }) %>
 

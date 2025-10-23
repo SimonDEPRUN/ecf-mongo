@@ -10,20 +10,22 @@
 
 <body>
   <%- include("../header") %>
+
   <main class="container">
-    <h2 class="text-center">New avion</h2>
-    <form method="POST" action="/api/avion">
+    <h2 class="text-center">Update avion</h2>
+    <form method="POST" action="/api/avion/<%= avion._id %>?_method=PUT">
       <div class="mb-3">
         <label for="model" class="form-label">Modèle : </label>
-        <input type="text" class="form-control" name="model" id="model" aria-describedby="textHelp">
+        <input type="text" value="<%= avion.model %>" name="model" class="form-control" id="model" aria-describedby="emailHelp">
       </div>
       <div class="mb-3">
         <label for="compagnie" class="form-label">Compagnie : </label>
-        <input type="text" class="form-control" name="compagnie" id="compagnie">
+        <input type="text" value="<%= avion.compagnie %>" name="compagnie" class="form-control" id="compagnie">
       </div>
+
       <div class="mb-3">
-        <label class="form-check-label" for="capacite">Capacité de l'avion : </label>
-        <input type="number" class="form-control" name="capacite" id="capacite">
+        <label for="capacite" class="form-label">Capacité : </label>
+        <input type="text" value="<%= avion.capacite %>" name="capacite" class="form-control" id="capacite">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

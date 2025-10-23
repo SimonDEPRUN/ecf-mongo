@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include("../header") %>
+  <main class="container">
+    <h2 class="text-center">New vol</h2>
+    <form method="POST" action="/api/vol">
+      <div class="mb-3">
+        <label for="numero" class="form-label">Numéro de vol : </label>
+        <input type="text" class="form-control" name="numero" id="numero" aria-describedby="textHelp">
+      </div>
+      <div class="mb-3">
+        <label for="origine" class="form-label">Départ : </label>
+        <input type="text" class="form-control" name="origine" id="origine">
+      </div>
+      <div class="mb-3">
+        <label class="form-check-label" for="destination">Destination : </label>
+        <input type="text" class="form-control" name="destination" id="destination">
+      </div>
+      <div class="mb-3">
+        <label class="form-check-label" for="dateDepart">Date de départ : </label>
+        <input type="date" class="form-control" name="dateDepart" id="dateDepart">
+      </div>
+      <div class="mb-3">
+        <label class="form-check-label" for="dateArrivee">Date d'arrivée : </label>
+        <input type="date" class="form-control" name="dateArrivee" id="dateArrivee">
+      </div>
+      <div class="mb-3">
+        <label class="form-check-label" for="avionId">ID de l'appareil</label>
+        <select name="avionId" class="form-select">
+          <% avions.forEach( a => { %>
+          <option value="<%= a._id %>"> <%= a.compagnie %> - <%= a.model %> </option>
+          <% }) %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </main>
+</body>
+
+</html>
