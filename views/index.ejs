@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Aéroport</title>
+</head>
+
+<body>
+  <%- include("./header") %>
+  <main class="container">
+    <h1>Bienvenue à l'aéroport</h1>
+    <ul>
+      <li>Nous avons <%= volActifs %> vols actifs</li>
+      <li><%= enService %> avions sont en service actuellement</li>
+      <li><%= passagersTotal %> passagers ont déjà pris leurs billets chez nous</li>
+      <li>Nous avons vendu un total de <%= billetsVendu %> billets</li>
+      <li>Pour un CA total de : <%= CA %>€</li>
+      <li>Nous avons un taux d'annulation global de : <%= tauxAnnulation %>%</li>
+    </ul>
+  </main>
+
+
+</body>
+
+</html>

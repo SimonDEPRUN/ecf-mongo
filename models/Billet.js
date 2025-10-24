@@ -8,7 +8,7 @@ const billetSchema = new Schema({
     prix: { type: Number, min: [0, "le prix doit être positif"] },
     dateReservation: { type: Date, required: true, default: Date.now },
     modePaiement: { type: String, enum: ["CB", "Paypal", "Especes"] },
-    statut: { type: String, enum: ["Confirme", "Annulé"], default: "Confirme" },
+    statut: { type: String, enum: ["Confirmé", "Annulé"], default: "Confirmé" },
 }, { timestamps: true })
 
 export default model("Billet", billetSchema);

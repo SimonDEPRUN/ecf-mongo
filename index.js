@@ -8,6 +8,7 @@ import avionRoutes from "./routes/avionRoutes.js"
 import billetRoutes from "./routes/billetRoutes.js"
 import volRoutes from "./routes/volRoutes.js"
 import passagerRoutes from "./routes/passagerRoutes.js"
+import indexRoutes from "./routes/indexRoutes.js"
 
 
 const app = express();
@@ -28,10 +29,13 @@ connect("mongodb://127.0.0.1:27017/TP_ecf")
 app.set("view engine", "ejs");
 // app.set("views", "./views");
 
+app.use("/api/", indexRoutes)
 app.use("/api/avion", avionRoutes);
 app.use("/api/billet", billetRoutes);
 app.use("/api/passager", passagerRoutes);
 app.use("/api/vol", volRoutes);
 
+app.get("/api/", (req, res) => res.redirect("index"));
 app.get("/", (req, res) => res.send("API MongoDB en Node.js"));
 app.listen(3000, () => console.log("Serveur lancé sur http://localhost:3000"));
+

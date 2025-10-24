@@ -40,8 +40,6 @@ router.get("/", async (req, res) => {
 
         const billetAnnulee = billets.filter(b => b.statut === "Annulé")
 
-
-
         const billetsParClasse = {};
         billets.forEach(b => {
             const classe = b.classe || "Inconnu";
@@ -84,6 +82,30 @@ router.get("/new", async (req, res) => {
         res.render("billet/new", { vols, passagers });
     } catch (err) {
 
+    }
+});
+router.put("/:id/toggle", async (req, res) => {
+    const session = await mongoose.startSession();
+    try {
+        const billet = await Billet.findById(req.params.id).session(session);
+        const vol = await Vol.findById(billet.volId).session(session);
+        const avion = await Avion.findById(vol.avionId).session(session);
+
+        if (billet.statut === "Confirmé") {
+            billet.statut = "Annulé"
+            avion.placeRestantes += 1;
+        } else {
+            if (avion.placeRestantes <= 0) throw new Error("Impossible de confirmer : il n'y a plus de place disponible");
+            billet.statut = "Confirmé";
+            avion.placeRestantes -= 1;
+        }
+        await billet.save({ session });
+        await avion.save({ session });
+        session.endSession();
+
+        res.redirect("/api/billet");
+    } catch (err) {
+        session.endSession();
     }
 });
 router.delete("/:id", async (req, res) => {

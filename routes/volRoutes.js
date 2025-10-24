@@ -8,12 +8,8 @@ router.post("/", async (req, res) => {
     try {
         const { avionId } = req.body;
         const avion = await Avion.findById(avionId);
-
-        const volData = {
-            ...req.body,
-            placeRestantes: avion.capacite
-        }
-        const vol = await Vol.create(volData);
+        if (!avion) { return res.status(400).send("Avion introuvable ou non sélectionné"); }
+        const vol = await Vol.create(req.body);
         res.redirect("/api/vol")
     } catch (err) {
     }
